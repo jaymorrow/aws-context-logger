@@ -4,8 +4,9 @@
   "description": "Consistent logging and output for AWS Lambda functions",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/istanbul cover -x **/test-helpers/** ./node_modules/.bin/_mocha",
-    "mocha": "mocha -G -w"
+    "test": "./node_modules/.bin/_mocha",
+    "mocha": "mocha -G -w",
+    "cover": "node ./node_modules/.bin/istanbul cover -x **/test-helpers/** ./node_modules/.bin/_mocha"
   },
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "MIT",
