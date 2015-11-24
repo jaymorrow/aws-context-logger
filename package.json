@@ -11,6 +11,7 @@
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "codecov": "^1.0.1",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.4"
   }
