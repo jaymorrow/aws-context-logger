@@ -1,5 +1,5 @@
 {
-  "name": "context-logger",
+  "name": "aws-context-logger",
   "version": "0.5.0",
   "description": "Consistent logging and output for AWS Lambda functions",
   "main": "index.js",

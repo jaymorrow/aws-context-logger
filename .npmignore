@@ -1,2 +1,5 @@
 .travis.yml
+.npmignore
+.gitignore
 test/
+test-helpers/
