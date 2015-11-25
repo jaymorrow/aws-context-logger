@@ -12,10 +12,10 @@ describe('Failing tests', function() {
             var lambda = handler(function(event, context) {
                 var ctx = logger(context);
                 var err = new Error('Does not exist');
-                ctx.fail(404, err);
+                ctx.fail(err, 404);
             });
 
-            var errorMessage = 'Not Found: Does not exist';
+            var errorMessage = '404: Does not exist';
             var errorType = 'Not Found';
             lambda({}, function(actual) {
                 actual = JSON.parse(actual);
@@ -39,10 +39,10 @@ describe('Failing tests', function() {
 
             var lambda = handler(function(event, context) {
                 var ctx = logger(context);
-                ctx.fail(401, event);
+                ctx.fail(event, 401);
             });
 
-            var errorMessage = 'Unauthorized: ' + JSON.stringify(err);
+            var errorMessage = '401: ' + JSON.stringify(err);
             var errorType = 'Unauthorized';
             lambda(err, function(actual) {
                 actual = JSON.parse(actual);
@@ -61,10 +61,10 @@ describe('Failing tests', function() {
 
             var lambda = handler(function(event, context) {
                 var ctx = logger(context);
-                ctx.fail(501, event);
+                ctx.fail(event, 501);
             });
 
-            var errorMessage = 'Not Implemented: ' + err.toString();
+            var errorMessage = '501: ' + err.toString();
             var errorType = 'Not Implemented';
             lambda(err, function(actual) {
                 actual = JSON.parse(actual);
@@ -83,10 +83,10 @@ describe('Failing tests', function() {
 
             var lambda = handler(function(event, context) {
                 var ctx = logger(context);
-                ctx.fail(501, event);
+                ctx.fail(event, 501);
             });
 
-            var errorMessage = 'Not Implemented: ' + err;
+            var errorMessage = '501: ' + err;
             var errorType = 'Not Implemented';
             lambda(err, function(actual) {
                 actual = JSON.parse(actual);
@@ -113,7 +113,7 @@ describe('Failing tests', function() {
                 ctx.done(event);
             });
 
-            var errorMessage = 'Internal Server Error: ' + JSON.stringify(err);
+            var errorMessage = '500: ' + JSON.stringify(err);
             var errorType = 'Internal Server Error';
             lambda(err, function(actual) {
                 actual = JSON.parse(actual);
@@ -131,7 +131,7 @@ describe('Succeeding tests', function() {
     it('should return object', function(done) {
         var lambda = handler(function(event, context) {
             var ctx = logger(context);
-            ctx.succeed(201, event);
+            ctx.succeed(event, 201);
         });
 
         var expected = {
@@ -141,6 +141,21 @@ describe('Succeeding tests', function() {
             actual = JSON.parse(actual);
 
             assert.deepEqual(actual, expected);
+            done();
+        });
+    });
+
+    it('should return a stringified function', function(done) {
+        var lambda = handler(function(event, context) {
+            var ctx = logger(context);
+            ctx.succeed(event, 201);
+        });
+
+        var expected = function test() {};
+        lambda(expected, function(actual) {
+            actual = JSON.parse(actual);
+
+            assert.deepEqual(actual, expected.toString());
             done();
         });
     });
@@ -161,6 +176,26 @@ describe('Succeeding tests', function() {
                 assert.deepEqual(actual, expected);
                 done();
             });
+        });
+    });
+});
+
+describe('Unkown status', function () {
+    it('should return \'Unknown\'', function (done) {
+        var err = 'My Error'
+        var lambda = handler(function (event, context) {
+            var ctx = logger(context);
+            ctx.fail(event, 650);
+        });
+
+        var errorMessage = '650: ' + err;
+        lambda(err, function (actual) {
+            actual = JSON.parse(actual);
+
+            assert.equal(actual.errorMessage, errorMessage);
+            assert.equal(actual.errorType, 'Unknown');
+            assert.equal(actual.stackTrace, '');
+            done();
         });
     });
 });
