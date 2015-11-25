@@ -6,7 +6,8 @@
   "scripts": {
     "test": "istanbul cover -x **/test-helpers/** _mocha",
     "mocha": "mocha -G -w",
-    "travis": "istanbul cover -x **/test-helpers/** _mocha -- -R spec && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js"
+    "travis": "istanbul cover -x **/test-helpers/** _mocha -- -R spec && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js",
+    "postversion": "git push && git push --tags"
   },
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "MIT",
