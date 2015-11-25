@@ -13,6 +13,7 @@ describe('Using logger', function() {
     var ctx = logger();
 
     it('should run the test', function () {
+        console.log(ctx.log);
         assert.ok(true);
     });
 
