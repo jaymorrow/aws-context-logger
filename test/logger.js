@@ -4,7 +4,7 @@ process.env.NODE_ENV = '';
 
 var path = require('path');
 
-var cachePath = path.resolve('../index.js');
+var cachePath = path.resolve(__dirname, '..', 'index.js');
 console.log(cachePath);
 if (process.env.CI_ENV === 'travis') {
     cachePath = '/home/travis/build/jaymorrow/aws-context-logger/index.js';
@@ -17,6 +17,10 @@ var listener = require('../test-helpers/listener');
 
 describe('Using logger', function() {
     var ctx = logger();
+    it('should fail', function (done) {
+        assert.fail(1, 1);
+        done();
+    });
 
     it('should log an error', function (done) {
         var expectedType = 'error';
