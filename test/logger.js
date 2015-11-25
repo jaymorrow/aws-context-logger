@@ -12,6 +12,7 @@ var listener = require('../test-helpers/listener');
 describe('Using logger', function() {
     var ctx = logger();
 
+    console.log(ctx.log);
     it('should log an error', function (done) {
         var expectedType = 'error';
         var expectedString = 'my error';
