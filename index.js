@@ -42,7 +42,7 @@ var STATUS_CODES = {
     504: "Gateway Timeout",
     505: "HTTP Version Not Supported"
 };
-var typeRegex = /^error|log$/;
+var typeRegex = /^(?:error|log)$/;
 
 function Context(ctx, opts) {
     if (!(this instanceof Context)) {
@@ -113,7 +113,7 @@ util.inherits(ContextError, Error);
 
 function ConsoleError(status, message, stack) {
     this.name = STATUS_CODES[status];
-    this.message = message || 'Server Error';
+    this.message = message;
 
     if (stack) {
         this.stack = stack;
@@ -126,10 +126,6 @@ function noop() {};
 function logger() {
     var args = Array.prototype.slice.call(arguments);
     var type = 'log';
-
-    while (args[args.length - 1] === null) {
-        args.pop();
-    }
 
     try {
         var hasType = typeRegex.test(args[0]);
