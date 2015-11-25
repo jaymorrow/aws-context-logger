@@ -2,8 +2,11 @@
 
 process.env.NODE_ENV = '';
 
-// Delete cache to change logging function
-delete require.cache['/Users/jmorrow/Projects/context-logger/index.js'];
+var cachePath = '/Users/jmorrow/Projects/context-logger/index.js';
+if (process.env.CI_ENV === 'travis') {
+    cachePath = '/home/travis/build/jaymorrow/context-logger/index.js';
+}
+delete require.cache[cachePath];
 
 var assert = require('assert');
 var logger = require('../index');
@@ -12,7 +15,6 @@ var listener = require('../test-helpers/listener');
 describe('Using logger', function() {
     var ctx = logger();
 
-    console.log(ctx.log);
     it('should log an error', function (done) {
         var expectedType = 'error';
         var expectedString = 'my error';
