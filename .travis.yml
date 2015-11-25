@@ -4,7 +4,7 @@ node_js:
   - "4.0"
   - "0.12"
 env:
-  - NODE_ENV=test CI_ENV=travis
+  - CI_ENV=travis
 script:
   - npm run travis
 cache:
