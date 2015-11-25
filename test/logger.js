@@ -2,11 +2,12 @@
 
 process.env.NODE_ENV = '';
 
-var cachePath = '/Users/jmorrow/Projects/context-logger/index.js';
+var path = require('path');
+
+var cachePath = path.resolve('../index.js');
+console.log(cachePath);
 if (process.env.CI_ENV === 'travis') {
-    console.log('NODE_ENV', process.env.NODE_ENV);
-    console.log(Object.keys(require.cache));
-    cachePath = '/home/travis/build/jaymorrow/context-logger/index.js';
+    cachePath = '/home/travis/build/jaymorrow/aws-context-logger/index.js';
 }
 delete require.cache[cachePath];
 
