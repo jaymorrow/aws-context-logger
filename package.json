@@ -9,11 +9,28 @@
     "travis": "istanbul cover -x **/test-helpers/** _mocha -- -R spec && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js",
     "postversion": "git push && git push --tags"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaymorrow/aws-context-logger.git"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "api",
+    "log",
+    "context",
+    "amazon",
+    "logger"
+  ],
   "author": "Jay Morrow <jay.m.morrow@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "codecov.io": "^0.1.6",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/jaymorrow/aws-context-logger/issues"
+  },
+  "homepage": "https://github.com/jaymorrow/aws-context-logger#readme"
 }
