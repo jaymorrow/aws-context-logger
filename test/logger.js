@@ -2,15 +2,12 @@
 
 process.env.NODE_ENV = '';
 
-var cachePath = '/Users/jmorrow/Projects/context-logger/index.js';
-if (process.env.CI_ENV === 'travis') {
-    cachePath = '/home/travis/build/jaymorrow/context-logger/index.js';
-}
-delete require.cache[cachePath];
-
+var path = require('path');
 var assert = require('assert');
-var logger = require('../index');
 var listener = require('../test-helpers/listener');
+
+delete require.cache[path.resolve(__dirname, '..', 'index.js')];
+var logger = require('../index');
 
 describe('Using logger', function() {
     var ctx = logger();
