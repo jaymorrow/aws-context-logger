@@ -32,7 +32,7 @@ exports.handler = function (event, context) {
 
 ## Methods
 
-### constructor(context [, options])
+### constructor(context[, options])
 
 Instantiates a new logger. Use of the `new` keyword when using the constructor is optional.
 
@@ -70,6 +70,19 @@ The fail method will take whatever status and message is passed to it and conver
 1. __data__ (_Any_): Takes any value passed and returns it as the payload for the Lambda function. 
 2. [__status__] ](_Number_): The number of the status code. If not provided it will use the `defaulError` status code. The status code is only included in the log output, it is not included in the returned data.
 
+### done(error[, data])
+The `done` method is a standard Node style callback where the first parameter is returns as an error and the second returns successfully with the data passesd. The default status codes are used for error and success when using `done`.
+
+#### Arguments
+1. __error__ (_Non-null_): If a value other than `null` or `undefined` is passed the Lambda function will call [#fail](#fail) with the data passed.
+2. __data__ (_Any_): Will call [#succeed](#succeed) with the data passed. Will only be triggered if the value of the error argument is `null` or `undefined`.
+
+### log([type,]...)
+Sugar for the `console.log` function. Behaves almost identically and used internally to allow for expansion of logging in the future. Currently it only looks for a __type__ option to determine what type of output the log should have.
+
+#### Arguments
+1. [__type__] \(_String_): Looks for either `log` or `error` as the first paramter and will print using that method. _Defaults to `log`_.
+2. __...__ (_Any_): Accepts any number of comma separated arguments and prints them via the console.
 
 ## Status Codes 
 All current status codes are supported. Please see [https://httpstatuses.com/](https://httpstatuses.com/) for information on when to use a specific status code.
