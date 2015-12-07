@@ -120,7 +120,7 @@ Context.prototype.succeed = function(data, status) {
 };
 
 Context.prototype.done = function(err, data) {
-    if (err !== null || typeof err !== 'undefined') {
+    if (err !== null && typeof err !== 'undefined') {
         return this.fail(err);
     }
 
