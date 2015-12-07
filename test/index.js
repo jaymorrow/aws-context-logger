@@ -124,6 +124,26 @@ describe('Failing tests', function() {
                 done();
             });
         });
+
+        it('should return an error on \'false\'', function (done) {
+            var err = false;
+
+            var lambda = handler(function(event, context) {
+                var ctx = logger(context);
+                ctx.done(event, context);
+            });
+
+            var errorMessage = '500: false';
+            var errorType = 'Internal Server Error';
+            lambda(err, function(actual) {
+                actual = JSON.parse(actual);
+
+                assert.equal(actual.errorMessage, errorMessage);
+                assert.equal(actual.errorType, errorType);
+                assert.equal(actual.stackTrace, '');
+                done();
+            });
+        });
     });
 });
 

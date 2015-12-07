@@ -95,10 +95,7 @@ Context.prototype.fail = function(err, status) {
         err = err.toString();
     }
 
-    this.log('error', '%d - %s\n', status, getStatus(status), JSON.stringify({
-        error: err,
-        stackTrace: stack
-    }));
+    this.log('error', '%d - %s\n%s\n', status, getStatus(status), JSON.stringify(err), stack);
 
     if (isObject(err) || Array.isArray(err)) {
         err = JSON.stringify(err);
@@ -123,9 +120,10 @@ Context.prototype.succeed = function(data, status) {
 };
 
 Context.prototype.done = function(err, data) {
-    if (err) {
+    if (err !== null && typeof err !== 'undefined') {
         return this.fail(err);
     }
+
     return this.succeed(data);
 };
 
